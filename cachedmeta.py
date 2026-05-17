@@ -22,6 +22,9 @@ class Exercise(metaclass=CachedMeta):
     weight: float
     reps: int
 
+    def __post_init__(self):
+        print(f"{self} initialized")
+
     def __repr__(self):
         return f"Exercise({self.name}, {self.weight}, {self.reps})"
 
