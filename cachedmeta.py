@@ -16,16 +16,6 @@ class CachedMeta(type):
         return type(cls)._cached[cls][tup]
 
 
-# class Exercise(metaclass=CachedMeta):
-#     def __init__(self, name, weight, reps):
-#         self.name = name
-#         self.weight = weight
-#         self.reps = reps
-#         print(f"{self} initialized")
-
-
-#     def __repr__(self):
-#         return f"Exercise({self.name}, {self.weight}, {self.reps})"
 @dataclass
 class Exercise(metaclass=CachedMeta):
     name: str
