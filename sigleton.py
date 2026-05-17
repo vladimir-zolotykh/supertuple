@@ -7,10 +7,10 @@ class Singleton(type):
     _instances = {}
 
     def __call__(cls):
-        if cls in Singleton._instances:
-            return Singleton._instances[cls]
+        if cls in type(cls)._instances:
+            return type(cls)._instances[cls]
         obj = super().__call__()
-        Singleton._instances[cls] = obj
+        type(cls)._instances[cls] = obj
         return obj
 
 
