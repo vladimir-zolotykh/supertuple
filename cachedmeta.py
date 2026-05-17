@@ -5,21 +5,14 @@ from collections import defaultdict
 
 
 class CachedMeta(type):
-    _instances = {}
+    _cached = defaultdict(dict)
 
     def __call__(cls, *args):
-        # cached = {}
-        if cls in type(cls)._instances:
-            cached = type(cls)._instances[cls]
-        else:
-            cached = type(cls)._instances[cls] = {}
         tup = tuple(args)
-        if tup not in cached:
+        if tup not in CachedMeta._cached[cls]:
             obj = super().__call__(*args)
-            cached[tup] = obj
-        else:
-            obj = cached[tup]
-        return obj
+            CachedMeta._cached[cls][tup] = obj
+        return CachedMeta._cached[cls][tup]
 
 
 class Exercise(metaclass=CachedMeta):
