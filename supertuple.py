@@ -26,7 +26,7 @@ class SuperTuple(tuple, metaclass=TupleMeta):
         return "(" + items + ")"
 
     def __repr__(self):
-        return self._as_tuple()
+        return f"{self.__class__.__name__}(self._as_tuple())"
 
 
 class Exercise(SuperTuple):
@@ -34,6 +34,14 @@ class Exercise(SuperTuple):
 
 
 if __name__ == "__main__":
-    st = Exercise("squat", 87.5, 3)
-    print(st.as_csv())
-    print(repr(st))
+    """
+    >>> ex = Exercise("squat", 87.5, 3)
+    >>> ex.as_csv()
+    "name='squat', weight=87.5, reps=3"
+    >>> repr(ex)
+    'Exercise(self._as_tuple())'
+    >>>
+    """
+    import doctest
+
+    doctest.testmod()
