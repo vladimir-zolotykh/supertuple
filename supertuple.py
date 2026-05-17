@@ -18,6 +18,16 @@ class SuperTuple(tuple, metaclass=TupleMeta):
             raise ValueError(f"Expected {len(cls._fields)} , got {len(args)}")
         return super().__new__(cls, args)
 
+    def as_csv(self):
+        return ", ".join(f"{name}={getattr(self, name)!r}" for name in self._fields)
+
+    def _as_tuple(self) -> str:
+        items = ", ".join(str(self.__getitem__(n)) for n in range(len(self)))
+        return "(" + items + ")"
+
+    def __repr__(self):
+        return self._as_tuple()
+
 
 class Exercise(SuperTuple):
     _fields = ["name", "weight", "reps"]
@@ -25,4 +35,5 @@ class Exercise(SuperTuple):
 
 if __name__ == "__main__":
     st = Exercise("squat", 87.5, 3)
-    print(st.name, st.weight, st.reps)
+    print(st.as_csv())
+    print(repr(st))
