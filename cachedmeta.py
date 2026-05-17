@@ -9,10 +9,10 @@ class CachedMeta(type):
 
     def __call__(cls, *args):
         tup = tuple(args)
-        if tup not in CachedMeta._cached[cls]:
+        if tup not in type(cls)._cached[cls]:
             obj = super().__call__(*args)
-            CachedMeta._cached[cls][tup] = obj
-        return CachedMeta._cached[cls][tup]
+            type(cls)._cached[cls][tup] = obj
+        return type(cls)._cached[cls][tup]
 
 
 class Exercise(metaclass=CachedMeta):
